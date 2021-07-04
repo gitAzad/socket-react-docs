@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Document = require('./Document');
 const path = require('path');
+const app = express();
+const server = require('http').createServer(app);
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
-const app = express();
 const PORT = process.env.PORT || 3001;
 
 if (process.env.NODE_ENV === 'production') {
@@ -55,3 +56,7 @@ async function findOrCreateDocument(id) {
   if (document) return document;
   return await Document.create({ _id: id, data: defaultValue });
 }
+
+server.listen(PORT, () => {
+  console.log('Connected to port:' + PORT);
+});

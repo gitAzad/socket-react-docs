@@ -23,7 +23,7 @@ export default function TextEditor() {
   const [quill, setQuill] = useState();
 
   useEffect(() => {
-    const s = io('https://socket-react-docs.herokuapp.com');
+    const s = io('/');
     setSocket(s);
 
     return () => {
