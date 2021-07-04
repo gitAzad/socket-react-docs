@@ -23,7 +23,16 @@ export default function TextEditor() {
   const [quill, setQuill] = useState();
 
   useEffect(() => {
-    const s = io('/');
+    const getPORT = () => {
+      let PORT = '/';
+      if (process.env.NODE_ENV === 'development') {
+        return (PORT = 'localhost:3001');
+      } else {
+        return PORT;
+      }
+    };
+
+    const s = io(getPORT());
     setSocket(s);
 
     return () => {
