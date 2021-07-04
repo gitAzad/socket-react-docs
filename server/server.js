@@ -1,8 +1,20 @@
+const express = require('express');
 const mongoose = require('mongoose');
 const Document = require('./Document');
+const path = require('path');
+
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+
+const app = express();
 const PORT = process.env.PORT || 3001;
 
-require('dotenv').config();
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
 
 mongoose.connect(process.env.mongoURI, {
   useNewUrlParser: true,
