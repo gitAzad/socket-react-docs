@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Document = require('./Document');
 const path = require('path');
 const app = express();
-const server = require('http').createServer(app);
+const server = require('http').Server(app);
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -24,7 +24,7 @@ mongoose.connect(process.env.mongoURI, {
   useCreateIndex: true,
 });
 
-const io = require('socket.io')(PORT, {
+const io = require('socket.io')(server, {
   cors: {
     origin: '*',
     methods: ['GET', 'POST'],
