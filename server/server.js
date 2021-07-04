@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Document = require('./Document');
+const PORT = process.env.PORT || 3001;
 
 require('dotenv').config();
 
@@ -10,9 +11,9 @@ mongoose.connect(process.env.mongoURI, {
   useCreateIndex: true,
 });
 
-const io = require('socket.io')(3001, {
+const io = require('socket.io')(PORT, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 });
